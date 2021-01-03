@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import {useSelector, useDispatch} from "react-redux";
+import {PUSH_USER, DELL_USER} from './actionc-types';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default function App() {
+
+    const dispatch = useDispatch();
+    const user = useSelector(user => user);
+    console.log(user);
+
+    const pushthat = () => {
+        const value = document.getElementById("myinput").value
+        dispatch({type: PUSH_USER, payload: value})
+    };
+
+    const dellthat = () => {
+        const userdell = document.getElementById("username").value
+        console.log(userdell);
+        dispatch({type: DELL_USER, payload: userdell})
+    };
+
+
+    return (
+
+        <div>
+            <h3>USER</h3>
+            <input datafld={'Hello'} id="myinput" type="text"/>
+            <button onClick={pushthat}>ADD</button>
+            <br/>
+            <select name="username" id="username">
+                {user.map((value) => (
+                    <option key={value} id={value}>
+                        {value}
+                    </option>))}
+            </select>
+            <button onClick={dellthat}>DELL</button>
+
+
+        </div>
+    );
 }
-
-export default App;
